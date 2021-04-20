@@ -1,18 +1,16 @@
-# Project Name
+# Esports Agent Bot
 
-Project Description
+This is a Discord bot built for the Esports Agent Server, designed to allow admins to generate scheduled reminder notifications.
 
-![](https://img.shields.io/codeclimate/maintainability/nhcarrigan/new-repo-template)
-![](https://img.shields.io/codeclimate/issues/nhcarrigan/new-repo-template)
-![](https://img.shields.io/codeclimate/tech-debt/nhcarrigan/new-repo-template)
-![](https://img.shields.io/lgtm/alerts/github/nhcarrigan/new-repo-template)
-![](https://img.shields.io/lgtm/grade/javascript/github/nhcarrigan/new-repo-template)
+![](https://img.shields.io/codeclimate/maintainability/nhcarrigan/esports-agent-bot)
+![](https://img.shields.io/codeclimate/issues/nhcarrigan/esports-agent-bot)
+![](https://img.shields.io/codeclimate/tech-debt/nhcarrigan/esports-agent-bot)
+![](https://img.shields.io/lgtm/alerts/github/nhcarrigan/esports-agent-bot)
+![](https://img.shields.io/lgtm/grade/javascript/github/nhcarrigan/esports-agent-bot)
 
 ## Live Version
 
-This page is not yet deployed.
-
-<!--This page is currently deployed. [View the live website.]()-->
+You can check out the bot by joining the [Esports Agent Discord Server](https://discord.gg/GB2HqBpvf9).
 
 ## Feedback and Bugs
 
