@@ -2,6 +2,7 @@ import * as Sentry from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
 import { Client } from "discord.js";
 import { logHandler } from "./helpers/logHandler";
+import { onReady } from "./events/onReady";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -21,5 +22,7 @@ if (!token) {
 }
 
 const BOT = new Client();
+
+BOT.on("ready", onReady);
 
 BOT.login(token);
