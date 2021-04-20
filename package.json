@@ -4,6 +4,9 @@
   "description": "A bot built for the Esports Agent Discord server",
   "main": "./prod/index.js",
   "scripts": {
+    "prebuild": "rm -rf ./prod",
+    "build": "tsc",
+    "lint": "eslint ./src",
     "test": "echo 'no tests yet'"
   },
   "engines": {
