@@ -6,6 +6,18 @@ Please ensure all pull requests and contributions comply with the [Developer Cer
 
 First, fork this repository to your own account. Then use `git clone <url>` to bring your forked repository down to your local machine (remember to get the URL for _your_ repository, not the original). Optionally, use `git remote add upstream <url>` to add the original repository as the upstream (this is helpful for keeping your fork up-to-date).
 
+Then `cd` in to the project directory. Run `cp sample.env .env` to copy our environment variables template, and update the variables with the following values:
+
+- `DISCORD_TOKEN`: This is the token for your [Discord Bot Application](https://discord.com/developers/applications).
+- `MONGO_URI`: This is your connection string for your MongoDB instance.
+- `SENTRY_DSN`: This is your connection string for your Sentry.io monitoring application.
+- `NODE_ENV`: Leave this as `development` if you are working locally, and only set to `production` if you've deployed this in a production instance with a LetsEncrypt certificate enabled.
+- `PREFIX`: This is the prefix the bot will listen to for commands.
+
+Once you have configured this, run `npm ci` to install the dependencies. Make your changes in the code base, then use `npm run build` to compile the TypeScript into JavaScript. Run `npm start` to launch the bot!
+
+Before submitting a PR, ensure that the code meets quality standards with `npm run lint` and the tests pass with `npm run test`.
+
 ## Claiming an Issue
 
 All of our issues are open to contributors! If you see an open issue you would like to work on, please comment on the issue so we may assign it to you.
