@@ -7,6 +7,7 @@
     "prebuild": "rm -rf ./prod",
     "build": "tsc",
     "lint": "eslint ./src",
+    "start": "node -r dotenv/config ./prod/index.js",
     "test": "echo 'no tests yet'"
   },
   "engines": {
@@ -43,5 +44,11 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.12.5",
+    "winston": "^3.3.3"
   }
 }
