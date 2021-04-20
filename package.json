@@ -46,6 +46,8 @@
     ]
   },
   "dependencies": {
+    "@sentry/integrations": "^6.2.5",
+    "@sentry/node": "^6.2.5",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "mongoose": "^5.12.5",
