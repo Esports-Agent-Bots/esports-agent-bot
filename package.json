@@ -1,0 +1,28 @@
+{
+  "name": "esports-agent-bot",
+  "version": "0.0.0",
+  "description": "A bot built for the Esports Agent Discord server",
+  "main": "./prod/index.js",
+  "scripts": {
+    "test": "echo 'no tests yet'"
+  },
+  "engines": {
+    "node": "^15.11.0",
+    "npm": "^7.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhcarrigan/esports-agent-bot.git"
+  },
+  "keywords": [
+    "Discord",
+    "discord.js",
+    "typescript"
+  ],
+  "author": "Nicholas Carrigan",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/nhcarrigan/esports-agent-bot/issues"
+  },
+  "homepage": "https://github.com/nhcarrigan/esports-agent-bot#readme"
+}
