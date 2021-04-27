@@ -1,6 +1,7 @@
 import { errorHandler } from "../helpers/errorHandler";
 import { CommandInt } from "../interfaces/CommandInt";
 import { createNotification } from "./notifications/createNotification";
+import { deleteNotification } from "./notifications/deleteNotification";
 import { viewNotification } from "./notifications/viewNotification";
 
 export const notification: CommandInt = {
@@ -23,7 +24,7 @@ export const notification: CommandInt = {
           await viewNotification(message, notifs);
           break;
         case "delete":
-          // run delete handler
+          await deleteNotification(message, notifs);
           break;
         default:
           await message.reply(
