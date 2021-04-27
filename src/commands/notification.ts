@@ -2,6 +2,7 @@ import { errorHandler } from "../helpers/errorHandler";
 import { CommandInt } from "../interfaces/CommandInt";
 import { createNotification } from "./notifications/createNotification";
 import { deleteNotification } from "./notifications/deleteNotification";
+import { helpNotifications } from "./notifications/helpNotifications";
 import { viewNotification } from "./notifications/viewNotification";
 
 export const notification: CommandInt = {
@@ -32,6 +33,9 @@ export const notification: CommandInt = {
           break;
         case "delete":
           await deleteNotification(message, notifs, intervals);
+          break;
+        case "help":
+          await helpNotifications(message);
           break;
         default:
           await message.reply(
