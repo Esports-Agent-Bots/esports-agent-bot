@@ -10,13 +10,23 @@ export const viewNotification = async (
   try {
     const [, , , number] = message.content.split(" ");
 
-    console.log(number);
+    if (!message.guild) {
+      await message.reply("Sorry, but an unknown guild error has occurred.");
+      return;
+    }
 
     if (number) {
       const target = notifs[parseInt(number, 10)];
 
       if (!target) {
         await message.reply(`Sorry, but I could not find that notification`);
+        return;
+      }
+
+      if (message.guild.id !== target.id) {
+        await message.reply(
+          `Sorry, but that notification does not belong to you!`
+        );
         return;
       }
 
@@ -43,6 +53,7 @@ export const viewNotification = async (
     }
 
     const notificationList = Object.values(notifs)
+      .filter((el) => el.guildId === message.guild?.id)
       .map(
         (el) =>
           `#${el.number} - <#${el.channelId}> - ${customSubstring(
@@ -51,6 +62,11 @@ export const viewNotification = async (
           )}`
       )
       .join(`\n`);
+
+    if (!notificationList) {
+      await message.reply("You have no notifications set at this time!");
+      return;
+    }
 
     await message.channel.send(customSubstring(notificationList, 2000));
   } catch (error) {

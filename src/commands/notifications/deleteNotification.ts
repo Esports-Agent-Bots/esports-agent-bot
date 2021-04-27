@@ -3,13 +3,15 @@ import NotificationModel, {
   NotificationInt,
 } from "../../database/NotificationModel";
 import { errorHandler } from "../../helpers/errorHandler";
+import { IntervalsInt } from "../../interfaces/IntervalsInt";
 
 export const deleteNotification = async (
   message: Message,
-  notifs: { [key: number]: NotificationInt }
+  notifs: { [key: number]: NotificationInt },
+  intervals: IntervalsInt
 ) => {
   try {
-    const [, , , number] = message.content.split(' ');
+    const [, , , number] = message.content.split(" ");
 
     const target = parseInt(number, 10);
 
@@ -32,6 +34,8 @@ export const deleteNotification = async (
     await dataTarget?.delete();
 
     delete notifs[target];
+
+    clearInterval(intervals[target]);
 
     await message.channel.send(
       `Deleted the #${dataTarget?.number} notification in <#${dataTarget?.channelId}>.`

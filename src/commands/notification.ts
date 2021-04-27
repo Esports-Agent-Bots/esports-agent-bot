@@ -7,24 +7,31 @@ import { viewNotification } from "./notifications/viewNotification";
 export const notification: CommandInt = {
   name: "notification",
   description: "Create, update, view, or delete a notification.",
-  run: async (message, notifs) => {
+  run: async (message, notifs, intervals, bot) => {
     try {
-      const { content } = message;
+      const { member, content } = message;
+
+      if (!member?.hasPermission("MANAGE_GUILD")) {
+        await message.reply(
+          "You do not have the permission to modify notifications!"
+        );
+        return;
+      }
 
       const [, , action] = content.split(" ");
 
       switch (action) {
         case "create":
-          await createNotification(message, notifs);
+          await createNotification(message, notifs, intervals, bot);
           break;
         case "update":
-          // run update handler
+          await message.reply("This feature coming soon!");
           break;
         case "view":
           await viewNotification(message, notifs);
           break;
         case "delete":
-          await deleteNotification(message, notifs);
+          await deleteNotification(message, notifs, intervals);
           break;
         default:
           await message.reply(
