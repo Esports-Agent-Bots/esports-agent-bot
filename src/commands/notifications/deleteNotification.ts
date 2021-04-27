@@ -31,6 +31,13 @@ export const deleteNotification = async (
 
     const dataTarget = await NotificationModel.findOne({ number: target });
 
+    if (dataTarget?.guildId !== message.guild?.id) {
+      await message.reply(
+        "This notification does not belong to you and cannot be deleted."
+      );
+      return;
+    }
+
     await dataTarget?.delete();
 
     delete notifs[target];
