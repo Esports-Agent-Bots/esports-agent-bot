@@ -6,7 +6,7 @@ import { errorHandler } from "../../helpers/errorHandler";
 export const viewNotification = async (
   message: Message,
   notifs: { [key: number]: NotificationInt }
-) => {
+): Promise<void> => {
   try {
     const [, , , number] = message.content.split(" ");
 

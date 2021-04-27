@@ -1,4 +1,4 @@
-import { Channel, Client, Guild, TextChannel } from "discord.js";
+import { Client, TextChannel } from "discord.js";
 import { NotificationInt } from "../database/NotificationModel";
 import { IntervalsInt } from "../interfaces/IntervalsInt";
 import { errorHandler } from "./errorHandler";
@@ -8,7 +8,7 @@ export const scheduleReminder = (
   notification: NotificationInt,
   intervals: IntervalsInt,
   bot: Client
-) => {
+): void => {
   try {
     const guild = bot.guilds.cache.get(notification.guildId);
 
@@ -59,7 +59,7 @@ const sendReminder = async (
   content: string,
   bot: Client,
   number: number
-) => {
+): Promise<void> => {
   try {
     const last = await channel.messages.fetch({ limit: 1 });
 

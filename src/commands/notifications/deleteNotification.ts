@@ -9,7 +9,7 @@ export const deleteNotification = async (
   message: Message,
   notifs: { [key: number]: NotificationInt },
   intervals: IntervalsInt
-) => {
+): Promise<void> => {
   try {
     const [, , , number] = message.content.split(" ");
 

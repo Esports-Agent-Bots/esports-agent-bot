@@ -12,7 +12,7 @@ export const createNotification = async (
   notifs: { [key: number]: NotificationInt },
   intervals: IntervalsInt,
   bot: Client
-) => {
+): Promise<void> => {
   try {
     const [
       prefix,

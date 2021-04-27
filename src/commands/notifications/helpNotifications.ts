@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from "discord.js";
 import { errorHandler } from "../../helpers/errorHandler";
 
-export const helpNotifications = async (message: Message) => {
+export const helpNotifications = async (message: Message): Promise<void> => {
   try {
     const helpEmbed = new MessageEmbed();
     helpEmbed.setTitle("Notifications System");
