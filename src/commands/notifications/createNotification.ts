@@ -45,6 +45,20 @@ export const createNotification = async (
       return;
     }
 
+    if (time < 10) {
+      await message.reply(
+        "Sorry, but to avoid rate limits I cannot schedule notifications with a frequency of less than 10 minutes."
+      );
+      return;
+    }
+
+    if (Object.values(notifs).length >= 50) {
+      await message.reply(
+        "Sorry, but I can only handle 50 notifications at a time. Please clear out some existing notifications first."
+      );
+      return;
+    }
+
     // get the id from the mention
     const channel = rawChannel.replace(/\D/g, "");
 
