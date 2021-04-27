@@ -1,7 +1,11 @@
 import { Message } from "discord.js";
 import { CommandList } from "../commands/_CommandList";
+import { NotificationInt } from "../database/NotificationModel";
 
-export const onMessage = async (message: Message): Promise<void> => {
+export const onMessage = async (
+  message: Message,
+  notifs: { [key: number]: NotificationInt }
+): Promise<void> => {
   if (message.author.bot) {
     return;
   }
@@ -13,7 +17,7 @@ export const onMessage = async (message: Message): Promise<void> => {
   for (const Command of CommandList) {
     const [, target] = message.content.split(" ");
     if (Command.name === target) {
-      await Command.run(message);
+      await Command.run(message, notifs);
       break;
     }
   }

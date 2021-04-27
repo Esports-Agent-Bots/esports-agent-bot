@@ -3,7 +3,7 @@ import { CommandInt } from "../interfaces/CommandInt";
 export const notification: CommandInt = {
   name: "notification",
   description: "Create, update, view, or delete a notification.",
-  run: async (message) => {
+  run: async (message, notifs) => {
     const { content } = message;
 
     const [, , action] = content.split(" ");

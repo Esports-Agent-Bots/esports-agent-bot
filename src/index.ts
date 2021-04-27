@@ -4,6 +4,7 @@ import { Client } from "discord.js";
 import { logHandler } from "./helpers/logHandler";
 import { onReady } from "./events/onReady";
 import { onMessage } from "./events/onMessage";
+import { NotificationInt } from "./database/NotificationModel";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -17,6 +18,8 @@ Sentry.init({
 
 const token = process.env.DISCORD_TOKEN;
 
+const notificationCollection: { [key: number]: NotificationInt } = {};
+
 if (!token) {
   logHandler.log("error", "Missing token!");
   process.exit(1);
@@ -24,8 +27,8 @@ if (!token) {
 
 const BOT = new Client();
 
-BOT.on("ready", onReady);
+BOT.on("ready", () => onReady(notificationCollection));
 
-BOT.on("message", (message) => onMessage(message));
+BOT.on("message", (message) => onMessage(message, notificationCollection));
 
 BOT.login(token);
