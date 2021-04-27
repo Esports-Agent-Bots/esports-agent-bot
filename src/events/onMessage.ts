@@ -14,6 +14,13 @@ export const onMessage = async (
   }
 
   if (!message.content.startsWith(process.env.PREFIX || "!esports")) {
+    if (message.mentions.users.first() === bot.user) {
+      await message.reply(
+        `How can I help? Try \`${
+          process.env.prefix || "!esports"
+        } help\` to see my available commands!`
+      );
+    }
     return;
   }
 
