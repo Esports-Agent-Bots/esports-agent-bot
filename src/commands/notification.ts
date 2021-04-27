@@ -1,4 +1,5 @@
 import { CommandInt } from "../interfaces/CommandInt";
+import { createNotification } from "./notifications/createNotification";
 
 export const notification: CommandInt = {
   name: "notification",
@@ -10,7 +11,7 @@ export const notification: CommandInt = {
 
     switch (action) {
       case "create":
-        // run create handler
+        await createNotification(message, notifs);
         break;
       case "update":
         // run update handler
