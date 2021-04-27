@@ -1,6 +1,7 @@
 import { Channel, Client, Guild, TextChannel } from "discord.js";
 import { NotificationInt } from "../database/NotificationModel";
 import { IntervalsInt } from "../interfaces/IntervalsInt";
+import { errorHandler } from "./errorHandler";
 import { logHandler } from "./logHandler";
 
 export const scheduleReminder = (
@@ -8,45 +9,49 @@ export const scheduleReminder = (
   intervals: IntervalsInt,
   bot: Client
 ) => {
-  const guild = bot.guilds.cache.get(notification.guildId);
+  try {
+    const guild = bot.guilds.cache.get(notification.guildId);
 
-  if (!guild) {
-    logHandler.log(
-      "warn",
-      `Could not find guild with id ${notification.guildId} for ${notification.number}`
+    if (!guild) {
+      logHandler.log(
+        "warn",
+        `Could not find guild with id ${notification.guildId} for ${notification.number}`
+      );
+      return;
+    }
+
+    const channel = guild.channels.cache.get(
+      notification.channelId
+    ) as TextChannel;
+
+    if (!channel) {
+      logHandler.log(
+        "warn",
+        `Could not find channel with id ${notification.channelId} for #${notification.number}`
+      );
+      return;
+    }
+
+    const target = setInterval(
+      async () =>
+        await sendReminder(
+          channel,
+          notification.content,
+          bot,
+          notification.number
+        ),
+      notification.frequency * 60000
     );
-    return;
-  }
 
-  const channel = guild.channels.cache.get(
-    notification.channelId
-  ) as TextChannel;
+    intervals[notification.number] = target;
 
-  if (!channel) {
     logHandler.log(
-      "warn",
-      `Could not find channel with id ${notification.channelId} for #${notification.number}`
+      "info",
+      `Set interval for notification #${notification.number}`
     );
-    return;
+  } catch (error) {
+    errorHandler(`schedule reminder for #${notification.number}`, error);
   }
-
-  const target = setInterval(
-    async () =>
-      await sendReminder(
-        channel,
-        notification.content,
-        bot,
-        notification.number
-      ),
-    notification.frequency * 60000
-  );
-
-  intervals[notification.number] = target;
-
-  logHandler.log(
-    "info",
-    `Set interval for notification #${notification.number}`
-  );
 };
 
 const sendReminder = async (
@@ -55,12 +60,16 @@ const sendReminder = async (
   bot: Client,
   number: number
 ) => {
-  const last = await channel.messages.fetch({ limit: 1 });
+  try {
+    const last = await channel.messages.fetch({ limit: 1 });
 
-  if (last.first()?.author.id === bot.user?.id) {
-    logHandler.log("info", `Skipped sending #${number} as was last message`);
-    return;
+    if (last.first()?.author.id === bot.user?.id) {
+      logHandler.log("info", `Skipped sending #${number} as was last message`);
+      return;
+    }
+
+    await channel.send(content);
+  } catch (error) {
+    errorHandler(`send reminder for #${number}`, error);
   }
-
-  await channel.send(content);
 };
