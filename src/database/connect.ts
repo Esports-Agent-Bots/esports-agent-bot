@@ -1,4 +1,4 @@
-import { connect } from "mongodb";
+import { connect } from "mongoose";
 import { errorHandler } from "../helpers/errorHandler";
 import { logHandler } from "../helpers/logHandler";
 
