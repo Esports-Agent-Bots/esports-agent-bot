@@ -6,6 +6,7 @@ export interface NotificationInt extends Document {
   frequency: number;
   content: string;
   guildId: string;
+  messageId: string;
 }
 
 export const Notification = new Schema({
@@ -14,6 +15,10 @@ export const Notification = new Schema({
   frequency: Number,
   content: String,
   guildId: String,
+  messageId: {
+    type: String,
+    default: "",
+  },
 });
 
 export default model<NotificationInt>("notification", Notification);

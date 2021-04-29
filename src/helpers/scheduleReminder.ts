@@ -1,5 +1,7 @@
 import { TextChannel } from "discord.js";
-import { NotificationInt } from "../database/NotificationModel";
+import NotificationModel, {
+  NotificationInt,
+} from "../database/NotificationModel";
 import { Esports } from "../interfaces/EsportsInt";
 import { errorHandler } from "./errorHandler";
 import { logHandler } from "./logHandler";
@@ -37,7 +39,8 @@ export const scheduleReminder = (
           channel,
           notification.content,
           bot,
-          notification.number
+          notification.number,
+          notification.messageId
         ),
       notification.frequency * 60000
     );
@@ -57,7 +60,8 @@ const sendReminder = async (
   channel: TextChannel,
   content: string,
   bot: Esports,
-  number: number
+  number: number,
+  messageId: string
 ): Promise<void> => {
   try {
     const last = await channel.messages.fetch({ limit: 1 });
@@ -67,7 +71,23 @@ const sendReminder = async (
       return;
     }
 
-    await channel.send(content);
+    if (messageId) {
+      const lastMessage = await channel.messages.fetch(messageId);
+      if (lastMessage.deletable) {
+        await lastMessage.delete();
+      }
+    }
+
+    const sent = await channel.send(content);
+
+    const data = await NotificationModel.findOne({ number: number });
+
+    if (data) {
+      data.messageId = sent.id;
+      await data.save();
+    }
+
+    bot.notifications[number].messageId = sent.id;
   } catch (error) {
     errorHandler(`send reminder for #${number}`, error);
   }
