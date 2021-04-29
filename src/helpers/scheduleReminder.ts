@@ -1,13 +1,12 @@
-import { Client, TextChannel } from "discord.js";
+import { TextChannel } from "discord.js";
 import { NotificationInt } from "../database/NotificationModel";
-import { IntervalsInt } from "../interfaces/IntervalsInt";
+import { Esports } from "../interfaces/EsportsInt";
 import { errorHandler } from "./errorHandler";
 import { logHandler } from "./logHandler";
 
 export const scheduleReminder = (
   notification: NotificationInt,
-  intervals: IntervalsInt,
-  bot: Client
+  bot: Esports
 ): void => {
   try {
     const guild = bot.guilds.cache.get(notification.guildId);
@@ -43,7 +42,7 @@ export const scheduleReminder = (
       notification.frequency * 60000
     );
 
-    intervals[notification.number] = target;
+    bot.intervals[notification.number] = target;
 
     logHandler.log(
       "info",
@@ -57,7 +56,7 @@ export const scheduleReminder = (
 const sendReminder = async (
   channel: TextChannel,
   content: string,
-  bot: Client,
+  bot: Esports,
   number: number
 ): Promise<void> => {
   try {

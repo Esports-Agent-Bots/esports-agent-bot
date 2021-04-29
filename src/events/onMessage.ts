@@ -1,13 +1,10 @@
-import { Client, Message } from "discord.js";
+import { Message } from "discord.js";
 import { CommandList } from "../commands/_CommandList";
-import { NotificationInt } from "../database/NotificationModel";
-import { IntervalsInt } from "../interfaces/IntervalsInt";
+import { Esports } from "../interfaces/EsportsInt";
 
 export const onMessage = async (
   message: Message,
-  notifs: { [key: number]: NotificationInt },
-  intervals: IntervalsInt,
-  bot: Client
+  bot: Esports
 ): Promise<void> => {
   if (message.author.bot) {
     return;
@@ -27,7 +24,7 @@ export const onMessage = async (
   for (const Command of CommandList) {
     const [, target] = message.content.split(" ");
     if (Command.name === target) {
-      await Command.run(message, notifs, intervals, bot);
+      await Command.run(message, bot);
       break;
     }
   }

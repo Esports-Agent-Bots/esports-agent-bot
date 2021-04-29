@@ -1,17 +1,13 @@
-import { Client, Message, MessageEmbed } from "discord.js";
-import NotificationModel, {
-  NotificationInt,
-} from "../../database/NotificationModel";
+import { Message, MessageEmbed } from "discord.js";
+import NotificationModel from "../../database/NotificationModel";
 import { customSubstring } from "../../helpers/customSubstring";
 import { errorHandler } from "../../helpers/errorHandler";
 import { scheduleReminder } from "../../helpers/scheduleReminder";
-import { IntervalsInt } from "../../interfaces/IntervalsInt";
+import { Esports } from "../../interfaces/EsportsInt";
 
 export const createNotification = async (
   message: Message,
-  notifs: { [key: number]: NotificationInt },
-  intervals: IntervalsInt,
-  bot: Client
+  bot: Esports
 ): Promise<void> => {
   try {
     const [
@@ -52,7 +48,7 @@ export const createNotification = async (
       return;
     }
 
-    if (Object.values(notifs).length >= 50) {
+    if (Object.values(bot.notifications).length >= 50) {
       await message.reply(
         "Sorry, but I can only handle 50 notifications at a time. Please clear out some existing notifications first."
       );
@@ -82,7 +78,7 @@ export const createNotification = async (
       );
     }
 
-    const highestNum = Object.values(notifs)
+    const highestNum = Object.values(bot.notifications)
       .map((el) => el.number)
       .sort((a, b) => b - a)[0];
 
@@ -97,7 +93,7 @@ export const createNotification = async (
     });
 
     // cache it
-    notifs[newNumber] = newNotification;
+    bot.notifications[newNumber] = newNotification;
 
     const createdEmbed = new MessageEmbed();
 
@@ -118,7 +114,7 @@ export const createNotification = async (
       },
     ]);
 
-    scheduleReminder(newNotification, intervals, bot);
+    scheduleReminder(newNotification, bot);
 
     await message.channel.send(createdEmbed);
   } catch (error) {

@@ -1,25 +1,17 @@
-import { Client } from "discord.js";
 import { connectDatabase } from "../database/connect";
 import { getNotifications } from "../database/getNotifications";
-import { NotificationInt } from "../database/NotificationModel";
 import { logHandler } from "../helpers/logHandler";
 import { scheduleReminder } from "../helpers/scheduleReminder";
 import { startServer } from "../helpers/server";
-import { IntervalsInt } from "../interfaces/IntervalsInt";
+import { Esports } from "../interfaces/EsportsInt";
 
-export const onReady = async (
-  notifs: {
-    [key: number]: NotificationInt;
-  },
-  intervals: IntervalsInt,
-  bot: Client
-): Promise<void> => {
+export const onReady = async (bot: Esports): Promise<void> => {
   await startServer();
   await connectDatabase();
-  await getNotifications(notifs);
-  const notifications = Object.values(notifs);
+  await getNotifications(bot);
+  const notifications = Object.values(bot.notifications);
   for (const notif of notifications) {
-    scheduleReminder(notif, intervals, bot);
+    scheduleReminder(notif, bot);
   }
   logHandler.log("debug", "Bot is online!");
 };

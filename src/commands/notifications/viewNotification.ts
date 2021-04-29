@@ -1,11 +1,11 @@
 import { Message, MessageEmbed } from "discord.js";
-import { NotificationInt } from "../../database/NotificationModel";
 import { customSubstring } from "../../helpers/customSubstring";
 import { errorHandler } from "../../helpers/errorHandler";
+import { Esports } from "../../interfaces/EsportsInt";
 
 export const viewNotification = async (
   message: Message,
-  notifs: { [key: number]: NotificationInt }
+  bot: Esports
 ): Promise<void> => {
   try {
     const [, , , number] = message.content.split(" ");
@@ -16,7 +16,7 @@ export const viewNotification = async (
     }
 
     if (number) {
-      const target = notifs[parseInt(number, 10)];
+      const target = bot.notifications[parseInt(number, 10)];
 
       if (!target) {
         await message.reply(`Sorry, but I could not find that notification`);
@@ -52,7 +52,7 @@ export const viewNotification = async (
       return;
     }
 
-    const notificationList = Object.values(notifs)
+    const notificationList = Object.values(bot.notifications)
       .filter((el) => el.guildId === message.guild?.id)
       .map(
         (el) =>

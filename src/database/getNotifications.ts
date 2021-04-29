@@ -1,15 +1,14 @@
 import { errorHandler } from "../helpers/errorHandler";
 import { logHandler } from "../helpers/logHandler";
-import NotificationModel, { NotificationInt } from "./NotificationModel";
+import { Esports } from "../interfaces/EsportsInt";
+import NotificationModel from "./NotificationModel";
 
-export const getNotifications = async (notifs: {
-  [key: number]: NotificationInt;
-}): Promise<void> => {
+export const getNotifications = async (bot: Esports): Promise<void> => {
   try {
     const list = await NotificationModel.find();
 
     list.forEach((notif) => {
-      notifs[notif.number] = notif;
+      bot.notifications[notif.number] = notif;
     });
 
     logHandler.log("debug", "Cached notification data!");

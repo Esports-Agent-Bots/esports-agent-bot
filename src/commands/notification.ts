@@ -8,7 +8,7 @@ import { viewNotification } from "./notifications/viewNotification";
 export const notification: CommandInt = {
   name: "notification",
   description: "Create, update, view, or delete a notification.",
-  run: async (message, notifs, intervals, bot) => {
+  run: async (message, bot) => {
     try {
       const { member, content } = message;
 
@@ -23,16 +23,16 @@ export const notification: CommandInt = {
 
       switch (action) {
         case "create":
-          await createNotification(message, notifs, intervals, bot);
+          await createNotification(message, bot);
           break;
         case "update":
           await message.reply("This feature coming soon!");
           break;
         case "view":
-          await viewNotification(message, notifs);
+          await viewNotification(message, bot);
           break;
         case "delete":
-          await deleteNotification(message, notifs, intervals);
+          await deleteNotification(message, bot);
           break;
         case "help":
           await helpNotifications(message);
