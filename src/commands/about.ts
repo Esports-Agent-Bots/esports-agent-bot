@@ -6,7 +6,7 @@ import { CommandList } from "./_CommandList";
 export const about: CommandInt = {
   name: "about",
   description: "Provides information about the bot.",
-  run: async (message, notifs, __, bot) => {
+  run: async (message, bot) => {
     try {
       const { channel } = message;
 
@@ -39,7 +39,7 @@ export const about: CommandInt = {
         },
         {
           name: "Active Notifications",
-          value: Object.keys(notifs).length,
+          value: Object.keys(bot.notifications).length,
           inline: true,
         },
       ]);

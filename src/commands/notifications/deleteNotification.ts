@@ -1,14 +1,11 @@
 import { Message } from "discord.js";
-import NotificationModel, {
-  NotificationInt,
-} from "../../database/NotificationModel";
+import NotificationModel from "../../database/NotificationModel";
 import { errorHandler } from "../../helpers/errorHandler";
-import { IntervalsInt } from "../../interfaces/IntervalsInt";
+import { Esports } from "../../interfaces/EsportsInt";
 
 export const deleteNotification = async (
   message: Message,
-  notifs: { [key: number]: NotificationInt },
-  intervals: IntervalsInt
+  bot: Esports
 ): Promise<void> => {
   try {
     const [, , , number] = message.content.split(" ");
@@ -22,7 +19,7 @@ export const deleteNotification = async (
       return;
     }
 
-    if (!notifs[target]) {
+    if (!bot.notifications[target]) {
       await message.reply(
         "Sorry, but I cannot find a notification matching that number."
       );
@@ -40,9 +37,9 @@ export const deleteNotification = async (
 
     await dataTarget?.delete();
 
-    delete notifs[target];
+    delete bot.notifications[target];
 
-    clearInterval(intervals[target]);
+    clearInterval(bot.intervals[target]);
 
     await message.channel.send(
       `Deleted the #${dataTarget?.number} notification in <#${dataTarget?.channelId}>.`

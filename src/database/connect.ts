@@ -9,6 +9,14 @@ export const connectDatabase = async (): Promise<void> => {
       logHandler.log("error", "missing DB connection string.");
       return;
     }
+    const encryptionKey = process.env.ENCRYPTION_KEY;
+    const signingKey = process.env.SIGNING_KEY;
+
+    if (!encryptionKey || !signingKey) {
+      logHandler.log("error", "Missing DB encryption credentials");
+      return;
+    }
+
     await connect(dbUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

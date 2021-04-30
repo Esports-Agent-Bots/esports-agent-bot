@@ -1,13 +1,14 @@
-import { Client, TextChannel } from "discord.js";
-import { NotificationInt } from "../database/NotificationModel";
-import { IntervalsInt } from "../interfaces/IntervalsInt";
+import { TextChannel } from "discord.js";
+import NotificationModel, {
+  NotificationInt,
+} from "../database/NotificationModel";
+import { Esports } from "../interfaces/EsportsInt";
 import { errorHandler } from "./errorHandler";
 import { logHandler } from "./logHandler";
 
 export const scheduleReminder = (
   notification: NotificationInt,
-  intervals: IntervalsInt,
-  bot: Client
+  bot: Esports
 ): void => {
   try {
     const guild = bot.guilds.cache.get(notification.guildId);
@@ -38,12 +39,13 @@ export const scheduleReminder = (
           channel,
           notification.content,
           bot,
-          notification.number
+          notification.number,
+          notification.messageId
         ),
       notification.frequency * 60000
     );
 
-    intervals[notification.number] = target;
+    bot.intervals[notification.number] = target;
 
     logHandler.log(
       "info",
@@ -57,8 +59,9 @@ export const scheduleReminder = (
 const sendReminder = async (
   channel: TextChannel,
   content: string,
-  bot: Client,
-  number: number
+  bot: Esports,
+  number: number,
+  messageId: string
 ): Promise<void> => {
   try {
     const last = await channel.messages.fetch({ limit: 1 });
@@ -68,7 +71,23 @@ const sendReminder = async (
       return;
     }
 
-    await channel.send(content);
+    if (messageId) {
+      const lastMessage = await channel.messages.fetch(messageId);
+      if (lastMessage.deletable) {
+        await lastMessage.delete();
+      }
+    }
+
+    const sent = await channel.send(content);
+
+    const data = await NotificationModel.findOne({ number: number });
+
+    if (data) {
+      data.messageId = sent.id;
+      await data.save();
+    }
+
+    bot.notifications[number].messageId = sent.id;
   } catch (error) {
     errorHandler(`send reminder for #${number}`, error);
   }
