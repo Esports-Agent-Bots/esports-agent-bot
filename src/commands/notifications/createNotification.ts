@@ -10,13 +10,8 @@ export const createNotification = async (
   bot: Esports
 ): Promise<void> => {
   try {
-    const [
-      prefix,
-      command,
-      action,
-      rawChannel,
-      rawTime,
-    ] = message.content.split(" ");
+    const [prefix, command, action, rawChannel, rawTime] =
+      message.content.split(" ");
 
     const guild = message.guild;
 
