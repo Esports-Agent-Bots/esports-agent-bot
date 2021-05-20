@@ -11,8 +11,8 @@
     "test": "echo 'no tests yet'"
   },
   "engines": {
-    "node": "^15.11.0",
-    "npm": "^7.10.0"
+    "node": "^16.2.0",
+    "npm": "^7.13.0"
   },
   "repository": {
     "type": "git",
