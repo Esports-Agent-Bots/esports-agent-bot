@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/nhcarrigan/esports-agent-bot#readme",
   "devDependencies": {
-    "@types/express": "4.17.11",
+    "@types/express": "4.17.12",
     "@types/node": "15.3.1",
     "@typescript-eslint/eslint-plugin": "4.25.0",
     "@typescript-eslint/parser": "4.25.0",
