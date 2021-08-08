@@ -1,5 +1,4 @@
 import { Document, model, Schema } from "mongoose";
-import encrypt from "mongoose-encryption";
 export interface NotificationInt extends Document {
   number: number;
   channelId: string;
@@ -19,15 +18,6 @@ export const Notification = new Schema({
     type: String,
     default: "",
   },
-});
-
-const encryptionKey = process.env.ENCRYPTION_KEY;
-const signingKey = process.env.SIGNING_KEY;
-
-Notification.plugin(encrypt, {
-  encryptionKey,
-  signingKey,
-  excludeFromEncryption: ["number"],
 });
 
 export default model<NotificationInt>("notification", Notification);
