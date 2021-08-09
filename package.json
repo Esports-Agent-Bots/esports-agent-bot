@@ -30,16 +30,16 @@
   },
   "homepage": "https://github.com/nhcarrigan/esports-agent-bot#readme",
   "devDependencies": {
-    "@types/express": "4.17.12",
-    "@types/node": "15.3.1",
-    "@typescript-eslint/eslint-plugin": "4.26.0",
-    "@typescript-eslint/parser": "4.26.0",
-    "eslint": "7.27.0",
+    "@types/express": "4.17.13",
+    "@types/node": "16.4.13",
+    "@typescript-eslint/eslint-plugin": "4.29.0",
+    "@typescript-eslint/parser": "4.29.0",
+    "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
-    "husky": "6.0.0",
-    "lint-staged": "11.0.0",
-    "prettier": "2.3.0"
+    "husky": "7.0.1",
+    "lint-staged": "11.1.2",
+    "prettier": "2.3.2"
   },
   "lint-staged": {
     "*.ts": [
@@ -48,12 +48,12 @@
     ]
   },
   "dependencies": {
-    "@sentry/integrations": "^6.4.1",
-    "@sentry/node": "^6.4.1",
+    "@sentry/integrations": "^6.11.0",
+    "@sentry/node": "^6.11.0",
     "discord.js": "^13.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.12.10",
+    "mongoose": "^5.13.5",
     "winston": "^3.3.3"
   }
 }
