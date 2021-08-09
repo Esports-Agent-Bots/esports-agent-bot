@@ -19,12 +19,12 @@ export const about: CommandInt = {
       aboutEmbed.addFields([
         {
           name: "Available Commands",
-          value: CommandList.length,
+          value: CommandList.length.toString(),
           inline: true,
         },
         {
           name: "Bot Version",
-          value: process.env.npm_package_version,
+          value: process.env.npm_package_version || "unknown",
           inline: true,
         },
         {
@@ -34,17 +34,17 @@ export const about: CommandInt = {
         },
         {
           name: "Server Count",
-          value: bot.guilds.cache.size,
+          value: bot.guilds.cache.size.toString(),
           inline: true,
         },
         {
           name: "Active Notifications",
-          value: Object.keys(bot.notifications).length,
+          value: Object.keys(bot.notifications).length.toString(),
           inline: true,
         },
       ]);
 
-      await channel.send(aboutEmbed);
+      await channel.send({ embeds: [aboutEmbed] });
     } catch (error) {
       errorHandler("about command", error);
     }

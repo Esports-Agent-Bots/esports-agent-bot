@@ -12,7 +12,7 @@ export const notification: CommandInt = {
     try {
       const { member, content } = message;
 
-      if (!member?.hasPermission("MANAGE_GUILD")) {
+      if (!member?.permissions.has("MANAGE_GUILD")) {
         await message.reply(
           "You do not have the permission to modify notifications!"
         );

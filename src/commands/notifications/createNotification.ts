@@ -55,7 +55,7 @@ export const createNotification = async (
 
     const validChannel = message.guild?.channels.cache.get(channel);
 
-    if (validChannel?.type !== "text") {
+    if (validChannel?.type !== "GUILD_TEXT") {
       await message.reply(
         "Sorry, but notifications can only be set on text channels."
       );
@@ -111,7 +111,7 @@ export const createNotification = async (
 
     scheduleReminder(newNotification, bot);
 
-    await message.channel.send(createdEmbed);
+    await message.channel.send({ embeds: [createdEmbed] });
   } catch (error) {
     errorHandler("create notification", error);
   }

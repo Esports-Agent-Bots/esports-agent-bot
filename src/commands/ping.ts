@@ -16,7 +16,7 @@ export const ping: CommandInt = {
       pongEmbed.setTitle("Pong");
       pongEmbed.setDescription(`Response Time: ${timeDiff}ms`);
 
-      await channel.send(pongEmbed);
+      await channel.send({ embeds: [pongEmbed] });
 
       return;
     } catch (error) {
