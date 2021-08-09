@@ -31,7 +31,7 @@ export const helpNotifications = async (message: Message): Promise<void> => {
       },
     ]);
 
-    await message.channel.send(helpEmbed);
+    await message.channel.send({ embeds: [helpEmbed] });
   } catch (error) {
     errorHandler("notification help", error);
   }

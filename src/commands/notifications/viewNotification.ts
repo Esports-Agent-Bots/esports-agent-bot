@@ -48,7 +48,7 @@ export const viewNotification = async (
         },
       ]);
 
-      await message.channel.send(notificationEmbed);
+      await message.channel.send({ embeds: [notificationEmbed] });
       return;
     }
 

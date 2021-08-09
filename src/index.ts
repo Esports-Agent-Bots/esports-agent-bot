@@ -5,6 +5,7 @@ import { logHandler } from "./helpers/logHandler";
 import { onReady } from "./events/onReady";
 import { onMessage } from "./events/onMessage";
 import { Esports } from "./interfaces/EsportsInt";
+import { IntentOptions } from "./config/IntentOptions";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -23,13 +24,13 @@ if (!token) {
   process.exit(1);
 }
 
-const BOT: Esports = new Client() as Esports;
+const BOT: Esports = new Client({ intents: IntentOptions }) as Esports;
 
 BOT.notifications = [];
 BOT.intervals = [];
 
 BOT.on("ready", () => onReady(BOT));
 
-BOT.on("message", (message) => onMessage(message, BOT));
+BOT.on("messageCreate", (message) => onMessage(message, BOT));
 
 BOT.login(token);

@@ -22,7 +22,7 @@ export const help: CommandInt = {
       );
       helpEmbed.addField("Commands", commandsString);
 
-      await message.channel.send(helpEmbed);
+      await message.channel.send({ embeds: [helpEmbed] });
     } catch (error) {
       errorHandler("help command", error);
     }
