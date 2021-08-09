@@ -31,6 +31,6 @@ BOT.intervals = [];
 
 BOT.on("ready", () => onReady(BOT));
 
-BOT.on("message", (message) => onMessage(message, BOT));
+BOT.on("messageCreate", (message) => onMessage(message, BOT));
 
 BOT.login(token);
