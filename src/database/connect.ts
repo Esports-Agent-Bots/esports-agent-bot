@@ -10,10 +10,7 @@ export const connectDatabase = async (): Promise<void> => {
       return;
     }
 
-    await connect(dbUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await connect(dbUri);
 
     logHandler.log("debug", "database connected!");
 
