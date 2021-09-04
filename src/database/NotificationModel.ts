@@ -1,4 +1,5 @@
 import { Document, model, Schema } from "mongoose";
+
 export interface NotificationInt extends Document {
   number: number;
   channelId: string;

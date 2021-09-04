@@ -5,6 +5,11 @@ import { scheduleReminder } from "../helpers/scheduleReminder";
 import { startServer } from "../helpers/server";
 import { Esports } from "../interfaces/EsportsInt";
 
+/**
+ * Handles the ready event from Discord.
+ *
+ * @param {Esports} bot The bot instance.
+ */
 export const onReady = async (bot: Esports): Promise<void> => {
   await startServer();
   await connectDatabase();

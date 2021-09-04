@@ -1,8 +1,15 @@
 import { Message } from "discord.js";
+
 import NotificationModel from "../../database/NotificationModel";
 import { errorHandler } from "../../helpers/errorHandler";
 import { Esports } from "../../interfaces/EsportsInt";
 
+/**
+ * Handles the deletion of an existing notification.
+ *
+ * @param {message} message The message object received from Discord.
+ * @param {Esports} bot The bot object.
+ */
 export const deleteNotification = async (
   message: Message,
   bot: Esports

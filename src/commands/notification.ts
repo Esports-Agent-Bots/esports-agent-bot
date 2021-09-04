@@ -1,5 +1,7 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { errorHandler } from "../helpers/errorHandler";
 import { CommandInt } from "../interfaces/CommandInt";
+
 import { createNotification } from "./notifications/createNotification";
 import { deleteNotification } from "./notifications/deleteNotification";
 import { helpNotifications } from "./notifications/helpNotifications";

@@ -1,6 +1,12 @@
 import { Message, MessageEmbed } from "discord.js";
+
 import { errorHandler } from "../../helpers/errorHandler";
 
+/**
+ * Generates instructions for interacting with the bot.
+ *
+ * @param {Message} message The message object from Discord.
+ */
 export const helpNotifications = async (message: Message): Promise<void> => {
   try {
     const helpEmbed = new MessageEmbed();

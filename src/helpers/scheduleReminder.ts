@@ -1,11 +1,57 @@
 import { TextChannel } from "discord.js";
+
 import NotificationModel, {
   NotificationInt,
 } from "../database/NotificationModel";
 import { Esports } from "../interfaces/EsportsInt";
+
 import { errorHandler } from "./errorHandler";
 import { logHandler } from "./logHandler";
 
+const sendReminder = async (
+  channel: TextChannel,
+  content: string,
+  bot: Esports,
+  number: number,
+  messageId: string
+): Promise<void> => {
+  try {
+    const last = await channel.messages.fetch({ limit: 1 });
+
+    if (last.first()?.author.id === bot.user?.id) {
+      logHandler.log("info", `Skipped sending #${number} as was last message`);
+      return;
+    }
+
+    if (messageId) {
+      const lastMessage = await channel.messages.fetch(messageId);
+      if (lastMessage.deletable) {
+        await lastMessage.delete();
+      }
+    }
+
+    const sent = await channel.send(content);
+
+    const data = await NotificationModel.findOne({ number: number });
+
+    if (data) {
+      data.messageId = sent.id;
+      await data.save();
+    }
+
+    // eslint-disable-next-line require-atomic-updates
+    bot.notifications[number].messageId = sent.id;
+  } catch (error) {
+    errorHandler(`send reminder for #${number}`, error);
+  }
+};
+
+/**
+ * Handles posting a reminder to the specified Discord channel.
+ *
+ * @param {NotificationInt} notification The notification data object.
+ * @param {Esports} bot The bot instance.
+ */
 export const scheduleReminder = (
   notification: NotificationInt,
   bot: Esports
@@ -53,42 +99,5 @@ export const scheduleReminder = (
     );
   } catch (error) {
     errorHandler(`schedule reminder for #${notification.number}`, error);
-  }
-};
-
-const sendReminder = async (
-  channel: TextChannel,
-  content: string,
-  bot: Esports,
-  number: number,
-  messageId: string
-): Promise<void> => {
-  try {
-    const last = await channel.messages.fetch({ limit: 1 });
-
-    if (last.first()?.author.id === bot.user?.id) {
-      logHandler.log("info", `Skipped sending #${number} as was last message`);
-      return;
-    }
-
-    if (messageId) {
-      const lastMessage = await channel.messages.fetch(messageId);
-      if (lastMessage.deletable) {
-        await lastMessage.delete();
-      }
-    }
-
-    const sent = await channel.send(content);
-
-    const data = await NotificationModel.findOne({ number: number });
-
-    if (data) {
-      data.messageId = sent.id;
-      await data.save();
-    }
-
-    bot.notifications[number].messageId = sent.id;
-  } catch (error) {
-    errorHandler(`send reminder for #${number}`, error);
   }
 };
