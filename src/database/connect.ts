@@ -1,7 +1,11 @@
 import { connect } from "mongoose";
+
 import { errorHandler } from "../helpers/errorHandler";
 import { logHandler } from "../helpers/logHandler";
 
+/**
+ * Instantiates the database connection.
+ */
 export const connectDatabase = async (): Promise<void> => {
   try {
     const dbUri = process.env.MONGO_URI;
@@ -10,10 +14,7 @@ export const connectDatabase = async (): Promise<void> => {
       return;
     }
 
-    await connect(dbUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await connect(dbUri);
 
     logHandler.log("debug", "database connected!");
 

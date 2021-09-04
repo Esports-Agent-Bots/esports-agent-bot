@@ -1,11 +1,12 @@
-import * as Sentry from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
+import * as Sentry from "@sentry/node";
 import { Client } from "discord.js";
-import { logHandler } from "./helpers/logHandler";
-import { onReady } from "./events/onReady";
-import { onMessage } from "./events/onMessage";
-import { Esports } from "./interfaces/EsportsInt";
+
 import { IntentOptions } from "./config/IntentOptions";
+import { onMessage } from "./events/onMessage";
+import { onReady } from "./events/onReady";
+import { logHandler } from "./helpers/logHandler";
+import { Esports } from "./interfaces/EsportsInt";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,

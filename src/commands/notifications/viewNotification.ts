@@ -1,8 +1,15 @@
 import { Message, MessageEmbed } from "discord.js";
+
 import { customSubstring } from "../../helpers/customSubstring";
 import { errorHandler } from "../../helpers/errorHandler";
 import { Esports } from "../../interfaces/EsportsInt";
 
+/**
+ * Lists the current notifications.
+ *
+ * @param {message} message The message object received from Discord.
+ * @param {Esports} bot The bot object.
+ */
 export const viewNotification = async (
   message: Message,
   bot: Esports

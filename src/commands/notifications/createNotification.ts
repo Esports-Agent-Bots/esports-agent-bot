@@ -1,10 +1,17 @@
 import { Message, MessageEmbed } from "discord.js";
+
 import NotificationModel from "../../database/NotificationModel";
 import { customSubstring } from "../../helpers/customSubstring";
 import { errorHandler } from "../../helpers/errorHandler";
 import { scheduleReminder } from "../../helpers/scheduleReminder";
 import { Esports } from "../../interfaces/EsportsInt";
 
+/**
+ * Handles the process for creating a new notification.
+ *
+ * @param {message} message The message object received from Discord.
+ * @param {Esports} bot The bot object.
+ */
 export const createNotification = async (
   message: Message,
   bot: Esports
@@ -88,6 +95,7 @@ export const createNotification = async (
     });
 
     // cache it
+    // eslint-disable-next-line require-atomic-updates
     bot.notifications[newNumber] = newNotification;
 
     const createdEmbed = new MessageEmbed();

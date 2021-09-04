@@ -1,7 +1,14 @@
 import { Message } from "discord.js";
+
 import { CommandList } from "../commands/_CommandList";
 import { Esports } from "../interfaces/EsportsInt";
 
+/**
+ * Handles the messageCreate event from Discord.
+ *
+ * @param {message} message The message object received from Discord.
+ * @param {Esports} bot The bot object.
+ */
 export const onMessage = async (
   message: Message,
   bot: Esports

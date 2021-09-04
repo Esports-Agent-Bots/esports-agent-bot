@@ -1,4 +1,6 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { MessageEmbed } from "discord.js";
+
 import { errorHandler } from "../helpers/errorHandler";
 import { CommandInt } from "../interfaces/CommandInt";
 
